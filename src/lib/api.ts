@@ -66,8 +66,8 @@ export const storage = {
 };
 
 export const audit = {
-    // Audit logs endpoint not implemented in backend yet
-    // getLogs: () => api.get('/audit/logs/')
+    // Audit logs endpoint
+    getLogs: () => api.get('/audit/logs/')
 };
 
 export default api;
