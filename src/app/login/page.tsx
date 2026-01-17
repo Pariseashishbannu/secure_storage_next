@@ -55,20 +55,20 @@ export default function LoginPage() {
 
         try {
             if (isLogin) {
-                const response = await axios.post('http://127.0.0.1:8000/api/v1/auth/token/', {
+                const response = await axios.post('http://api.pariseashish.com/api/v1/auth/token/', {
                     username: formData.username,
                     password: formData.password
                 });
                 login(response.data.access, response.data.refresh);
             } else {
                 // Register flow
-                await axios.post('http://127.0.0.1:8000/api/v1/auth/register/', {
+                await axios.post('http://api.pariseashish.com/api/v1/auth/register/', {
                     username: formData.username,
                     password: formData.password,
                     email: formData.email
                 });
                 // Auto login after register
-                const response = await axios.post('http://127.0.0.1:8000/api/v1/auth/token/', {
+                const response = await axios.post('http://api.pariseashish.com/api/v1/auth/token/', {
                     username: formData.username,
                     password: formData.password
                 });
