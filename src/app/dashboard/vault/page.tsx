@@ -287,11 +287,11 @@ export default function VaultPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white tracking-tight">Files</h1>
-                    <div className="flex items-center gap-2 text-sm text-neutral-400 mt-1">
+                    <h1 className="text-3xl font-bold text-foreground tracking-tight">Files</h1>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
                         <button
                             onClick={() => handleNavigateUp(-1)}
-                            className={`hover:text-white transition-colors flex items-center gap-1 ${!currentFolder ? 'text-white' : ''}`}
+                            className={`hover:text-foreground transition-colors flex items-center gap-1 ${!currentFolder ? 'text-foreground' : ''}`}
                         >
                             <HardDrive className="w-3 h-3" /> Root
                         </button>
@@ -300,7 +300,7 @@ export default function VaultPage() {
                                 <span className="opacity-50">/</span>
                                 <button
                                     onClick={() => handleNavigateUp(index)}
-                                    className={`hover:text-white transition-colors ${index === folderPath.length - 1 ? 'text-white' : ''}`}
+                                    className={`hover:text-foreground transition-colors ${index === folderPath.length - 1 ? 'text-foreground' : ''}`}
                                 >
                                     {folder.name}
                                 </button>
@@ -312,20 +312,20 @@ export default function VaultPage() {
                 <div className="flex items-center gap-3">
                     <button
                         onClick={() => setShowFolderModal(true)}
-                        className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-xl transition-colors font-medium text-sm flex items-center gap-2"
+                        className="bg-neutral-100 dark:bg-white/10 hover:bg-neutral-200 dark:hover:bg-white/20 text-foreground px-4 py-2 rounded-xl transition-colors font-medium text-sm flex items-center gap-2"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-folder-plus w-4 h-4"><path d="M12 10v6" /><path d="M9 13h6" /><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></svg>
                         New Folder
                     </button>
 
                     <div className="relative group">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 group-focus-within:text-blue-400 transition-colors" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 group-focus-within:text-blue-500 transition-colors" />
                         <input
                             type="text"
                             placeholder="Search..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all w-48"
+                            className="bg-white/50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-foreground focus:outline-none focus:border-blue-500/50 focus:bg-white dark:focus:bg-white/10 transition-all w-48"
                         />
                     </div>
                     <div className="flex bg-white/5 rounded-xl p-1 border border-white/10">
