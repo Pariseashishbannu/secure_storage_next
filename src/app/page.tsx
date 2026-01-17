@@ -17,7 +17,7 @@ export default function Home() {
   }, [router]);
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-black text-white">
+    <div className="h-screen w-full flex items-center justify-center bg-background text-foreground">
       <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
     </div>
   );

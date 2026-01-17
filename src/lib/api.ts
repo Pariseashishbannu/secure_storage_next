@@ -53,21 +53,59 @@ api.interceptors.response.use(
     }
 );
 
+// ... (previous code)
+
 export const storage = {
     // Stats endpoint
     getStats: () => api.get('/files/stats/'),
 
     // Updated endpoints to match apps.files.urls
-    getFiles: () => api.get('/files/'),
+    getFiles: (type?: string, folder?: string, favorite?: boolean, category?: string) => api.get('/files/', {
+        params: { type, folder, favorite, category }
+    }),
+    createFolder: (name: string, parent?: string) => api.post('/files/', {
+        name,
+        is_folder: true,
+        parent
+    }),
     uploadFile: (formData: FormData) => api.post('/files/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
     }),
-    getDownloadUrl: (fileId: string) => `${API_URL}/files/${fileId}/download/`
+
+    // Chunked Upload API
+    initChunkedUpload: (filename: string, fileSize: number, mimeType: string) => api.post('/files/upload/init/', {
+        filename, file_size: fileSize, mime_type: mimeType
+    }),
+    uploadChunk: (uploadId: string, chunk: Blob, chunkIndex: number) => {
+        const formData = new FormData();
+        formData.append('file', chunk);
+        formData.append('chunk_index', chunkIndex.toString());
+        return api.post(`/files/upload/chunk/${uploadId}/`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+    },
+    completeChunkedUpload: (uploadId: string, parentId?: string, metadata?: Record<string, unknown>) => api.post(`/files/upload/complete/${uploadId}/`, {
+        parent_id: parentId,
+        metadata: metadata
+    }),
+
+    getDownloadUrl: (fileId: string) => `${API_URL}/files/${fileId}/download/`,
+    deleteFile: (fileId: string) => api.delete(`/files/${fileId}/`),
+    updateFile: (fileId: string, data: Record<string, unknown>) => api.patch(`/files/${fileId}/`, data),
+    getStorageStats: () => api.get('/files/storage/stats/')
 };
 
 export const audit = {
     // Audit logs endpoint
-    getLogs: () => api.get('/audit/logs/')
+    getLogs: () => api.get('/audit/')
+};
+
+export const secrets = {
+    getAll: () => api.get('/secrets/'),
+    getById: (id: string) => api.get(`/secrets/${id}/`),
+    create: (data: Record<string, unknown>) => api.post('/secrets/', data),
+    update: (id: string, data: Record<string, unknown>) => api.patch(`/secrets/${id}/`, data),
+    delete: (id: string) => api.delete(`/secrets/${id}/`)
 };
 
 export default api;

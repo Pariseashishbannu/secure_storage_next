@@ -10,9 +10,10 @@ import { GlassCard } from './glass-card';
 interface DropZoneProps {
     onUpload: (files: File[]) => void;
     uploading: boolean;
+    className?: string;
 }
 
-export default function DropZone({ onUpload, uploading }: DropZoneProps) {
+export default function DropZone({ onUpload, uploading, className }: DropZoneProps) {
     const [dragActive, setDragActive] = useState(false);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -27,7 +28,7 @@ export default function DropZone({ onUpload, uploading }: DropZoneProps) {
     });
 
     return (
-        <div {...getRootProps()} className="relative group cursor-pointer">
+        <div {...getRootProps()} className={cn("relative group cursor-pointer", className)}>
             <input {...getInputProps()} />
 
             <GlassCard

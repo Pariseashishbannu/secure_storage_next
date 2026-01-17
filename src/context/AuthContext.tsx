@@ -8,6 +8,7 @@ interface AuthContextType {
     user: any;
     login: (access: string, refresh: string) => void;
     logout: () => void;
+    refreshProfile: () => Promise<void>;
     loading: boolean;
 }
 
@@ -18,21 +19,34 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
-    useEffect(() => {
+    const checkAuth = async () => {
         const token = localStorage.getItem('access_token');
         if (token) {
-            // Validate token or fetch user profile if needed
-            // For now, we assume if token exists, we are "logged in" for UI purposes
-            // In a real app, you'd verify the token with an endpoint like /auth/me/
-            setUser({ name: "Authorized User" });
+            try {
+                // Fetch user profile from backend to get real name
+                // We reuse the settings service logic here effectively
+                const response = await api.get('/users/profile/');
+                setUser(response.data);
+            } catch (error) {
+                console.error("Auth check failed", error);
+                // If profile fetch fails but we have token, we might want to keep "Authorized User" fallback or logout
+                // For now, let's keep the user logged in but with fallback name if fetch fails
+                if (!user) { // Only set fallback if no user set
+                    setUser({ name: "Authorized User" });
+                }
+            }
         }
         setLoading(false);
+    };
+
+    useEffect(() => {
+        checkAuth();
     }, []);
 
     const login = (access: string, refresh: string) => {
         localStorage.setItem('access_token', access);
         localStorage.setItem('refresh_token', refresh);
-        setUser({ name: "Authorized User" });
+        checkAuth(); // Fetch real profile on login
         router.push('/dashboard');
     };
 
@@ -44,7 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading, refreshProfile: checkAuth }}>
             {children}
         </AuthContext.Provider>
     );

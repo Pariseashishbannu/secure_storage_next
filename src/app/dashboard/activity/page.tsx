@@ -89,7 +89,9 @@ export default function ActivityPage() {
                                                 {log.ip_address}
                                             </span>
                                         </div>
-                                        <p className="text-xs text-neutral-500 truncate mt-0.5">{log.details}</p>
+                                        <p className="text-xs text-neutral-500 truncate mt-0.5">
+                                            {typeof log.details === 'object' ? JSON.stringify(log.details) : log.details}
+                                        </p>
                                     </div>
                                     <div className="text-right">
                                         <p className="text-xs text-neutral-400 font-mono">
