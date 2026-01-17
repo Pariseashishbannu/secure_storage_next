@@ -34,7 +34,7 @@ export default function DropZone({ onUpload, uploading, className }: DropZonePro
             <GlassCard
                 className={cn(
                     "relative overflow-hidden border-dashed border-2 h-40 flex items-center justify-center transition-all duration-300",
-                    isDragActive ? "border-blue-500 bg-blue-500/10" : "border-white/10 hover:border-white/20 hover:bg-white/5"
+                    isDragActive ? "border-blue-500 bg-blue-500/10" : "border-neutral-200 dark:border-white/10 hover:border-blue-400/50 dark:hover:border-white/20 hover:bg-blue-50 dark:hover:bg-white/5"
                 )}
             >
                 <AnimatePresence mode='wait'>
@@ -68,14 +68,14 @@ export default function DropZone({ onUpload, uploading, className }: DropZonePro
                         >
                             <div className={cn(
                                 "w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-colors duration-300",
-                                isDragActive ? "bg-blue-500 text-white" : "bg-white/5 text-neutral-400 group-hover:bg-blue-500/20 group-hover:text-blue-400"
+                                isDragActive ? "bg-blue-500 text-white" : "bg-neutral-100 dark:bg-white/5 text-neutral-400 group-hover:bg-blue-500/20 group-hover:text-blue-400"
                             )}>
                                 <Upload className="w-6 h-6" />
                             </div>
-                            <p className="text-white font-medium mb-1">
+                            <p className="text-foreground font-medium mb-1">
                                 {isDragActive ? "Drop to secure" : "Upload File"}
                             </p>
-                            <p className="text-xs text-neutral-500 max-w-[200px]">
+                            <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-[200px]">
                                 Drag & drop or click to encrypt and store in your private vault.
                             </p>
                         </motion.div>

@@ -328,7 +328,7 @@ export default function VaultPage() {
                             className="bg-white/50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-foreground focus:outline-none focus:border-blue-500/50 focus:bg-white dark:focus:bg-white/10 transition-all w-48"
                         />
                     </div>
-                    <div className="flex bg-white/5 rounded-xl p-1 border border-white/10">
+                    <div className="flex bg-neutral-100 dark:bg-white/5 rounded-xl p-1 border border-neutral-200 dark:border-white/10">
                         <button
                             onClick={() => setViewMode('list')}
                             className={cn("p-2 rounded-lg transition-colors", viewMode === 'list' ? "bg-white/10 text-white" : "text-neutral-500 hover:text-white")}
@@ -361,7 +361,7 @@ export default function VaultPage() {
                         ) : viewMode === 'list' ? (
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left">
-                                    <thead className="bg-white/5 text-neutral-400 uppercase text-xs">
+                                    <thead className="bg-neutral-100 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 uppercase text-xs">
                                         <tr>
                                             <th className="py-3 px-4 font-medium rounded-tl-lg rounded-bl-lg">Name</th>
                                             <th className="py-3 px-4 font-medium">Size</th>
@@ -370,7 +370,7 @@ export default function VaultPage() {
                                             <th className="py-3 px-4 font-medium text-right rounded-tr-lg rounded-br-lg">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-white/5">
+                                    <tbody className="divide-y divide-neutral-200 dark:divide-white/5">
                                         <AnimatePresence>
                                             {filteredFiles.map((file, i) => (
                                                 <motion.tr
@@ -379,7 +379,7 @@ export default function VaultPage() {
                                                     animate={{ opacity: 1, y: 0 }}
                                                     exit={{ opacity: 0, y: -10 }}
                                                     transition={{ delay: i * 0.05 }}
-                                                    className="group hover:bg-white/5 transition-colors cursor-pointer"
+                                                    className="group hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
                                                     onClick={() => file.is_folder && handleNavigate(file)}
                                                 >
                                                     <td className="py-3 px-4">
@@ -450,7 +450,7 @@ export default function VaultPage() {
                                             initial={{ opacity: 0, scale: 0.9 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ delay: i * 0.05 }}
-                                            className="group relative bg-white/5 border border-white/5 hover:border-blue-500/30 hover:bg-blue-500/5 rounded-xl p-4 flex flex-col items-center text-center transition-all duration-300 cursor-pointer"
+                                            className="group relative bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/5 hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/5 rounded-xl p-4 flex flex-col items-center text-center transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
                                             onClick={() => file.is_folder && handleNavigate(file)}
                                             onDoubleClick={() => file.is_folder && handleNavigate(file)}
                                         >
@@ -461,7 +461,7 @@ export default function VaultPage() {
                                                     <FileIcon className="w-6 h-6" />
                                                 )}
                                             </div>
-                                            <p className="font-medium text-white text-sm truncate w-full mb-1">{file.name}</p>
+                                            <p className="font-medium text-foreground text-sm truncate w-full mb-1">{file.name}</p>
                                             <p className="text-xs text-neutral-500">{file.is_folder ? 'Folder' : formatBytes(file.size)}</p>
 
                                             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
@@ -494,8 +494,8 @@ export default function VaultPage() {
                         <DropZone onUpload={handleUpload} uploading={uploading} />
 
                         {storageStats && (
-                            <div className="mt-6 bg-white/5 border border-white/10 rounded-xl p-4">
-                                <h3 className="text-white font-medium mb-3 flex items-center gap-2 text-sm">
+                            <div className="mt-6 bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl p-4">
+                                <h3 className="text-foreground font-medium mb-3 flex items-center gap-2 text-sm">
                                     <HardDrive className="w-4 h-4 text-blue-400" />
                                     Storage Quota
                                 </h3>
@@ -551,11 +551,11 @@ export default function VaultPage() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
                     <GlassCard className="w-full max-w-sm p-6 relative">
                         <button onClick={() => setShowFolderModal(false)} className="absolute top-4 right-4 text-neutral-500 hover:text-white">×</button>
-                        <h2 className="text-xl font-bold text-white mb-4">New Folder</h2>
+                        <h2 className="text-xl font-bold text-foreground mb-4">New Folder</h2>
                         <form onSubmit={handleCreateFolder} className="space-y-4">
                             <div>
                                 <label className="block text-xs uppercase text-neutral-500 mb-1">Folder Name</label>
-                                <input type="text" required value={newFolderName} onChange={e => setNewFolderName(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-blue-500" autoFocus />
+                                <input type="text" required value={newFolderName} onChange={e => setNewFolderName(e.target.value)} className="w-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-lg p-2 text-foreground focus:outline-none focus:border-blue-500" autoFocus />
                             </div>
                             <div className="flex gap-2 justify-end">
                                 <button type="button" onClick={() => setShowFolderModal(false)} className="px-4 py-2 rounded-lg text-neutral-400 hover:text-white text-sm">Cancel</button>
